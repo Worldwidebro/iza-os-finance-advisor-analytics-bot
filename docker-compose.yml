@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  iza-os-finance-advisor-analytics-bot:
+    build: .
+    environment:
+      - NODE_ENV=production
+      - REPO_NAME=iza-os-finance-advisor-analytics-bot
+      - ORGANIZATION=Worldwidebro
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+    networks:
+      - billionaire-empire
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - billionaire-empire
+
+networks:
+  billionaire-empire:
+    driver: bridge
